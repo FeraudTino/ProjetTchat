@@ -13,13 +13,13 @@ function test(){
     //Tableau qui stocke les sockets des clients
     $clients = array();
     //passage en non bloquant de la socket serveur
-    socket_set_nonblock( $sockeet );
+    socket_set_nonblock( $socket );
     //Boolean qui contrôle l'exécution du programme
     $end = false;
     //Boucle infinie
     while(!$end){
         //On récupère la connexion du client (socket)
-        $c = socket_accept($socket);
+        $c = @socket_accept($socket);
         if($c != FALSE){
             //Un client se connecte, passage de la socket en non bloquant
             socket_set_nonblock ( $c );
@@ -40,7 +40,7 @@ function test(){
             //On lit le contenu de la socket
             if($buf = socket_read ($c, 2048)){
                 //le client parle, on renvoie les données
-                socket_write($c, "You said : " $buf);
+                socket_write($c, "You said : ", $buf);
             }
         }
     }
